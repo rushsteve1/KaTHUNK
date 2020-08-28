@@ -11,39 +11,45 @@ __meta__ = {
 }
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
-margin_left = 461.0
+margin_left = 454.0
 margin_top = 274.0
-margin_right = 562.0
+margin_right = 569.0
 margin_bottom = 326.0
 
-[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer"]
+[node name="InfoPanel" type="PanelContainer" parent="HBoxContainer"]
 margin_right = 97.0
 margin_bottom = 52.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/InfoPanel"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 90.0
 margin_bottom = 45.0
 
-[node name="PinLabel" type="Label" parent="HBoxContainer/PanelContainer/VBoxContainer"]
+[node name="PinLabel" type="Label" parent="HBoxContainer/InfoPanel/VBoxContainer"]
 margin_right = 83.0
 margin_bottom = 14.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="StartButton" type="Button" parent="HBoxContainer/PanelContainer/VBoxContainer"]
+[node name="StartButton" type="Button" parent="HBoxContainer/InfoPanel/VBoxContainer"]
 margin_top = 18.0
 margin_right = 83.0
 margin_bottom = 38.0
 text = "Start Game"
 
-[node name="PlayerList" type="ItemList" parent="HBoxContainer"]
+[node name="PlayerPanel" type="PanelContainer" parent="HBoxContainer"]
 margin_left = 101.0
-margin_right = 101.0
+margin_right = 115.0
 margin_bottom = 52.0
+
+[node name="PlayerList" type="ItemList" parent="HBoxContainer/PlayerPanel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 7.0
+margin_bottom = 45.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
-[connection signal="pressed" from="HBoxContainer/PanelContainer/VBoxContainer/StartButton" to="." method="_on_StartButton_pressed"]
+[connection signal="pressed" from="HBoxContainer/InfoPanel/VBoxContainer/StartButton" to="." method="_on_StartButton_pressed"]

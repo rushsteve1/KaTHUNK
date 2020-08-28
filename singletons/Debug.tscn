@@ -1,8 +1,85 @@
-[gd_scene format=2]
+[gd_scene load_steps=2 format=2]
 
-[node name="Debug" type="Control"]
-anchor_right = 1.0
-anchor_bottom = 1.0
+[sub_resource type="GDScript" id=1]
+script/source = "extends CanvasLayer
+
+onready var control = $Control
+onready var watchedlist = $Control/TabContainer/Watched
+onready var loglist = $Control/TabContainer/Log
+onready var fpslabel = $Control/PanelContainer/FPSLabel
+
+func _ready() -> void:
+	self.control.hide()
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed(\"debug_menu\"):
+		self.control.set_visible(not self.control.is_visible())
+
+func _process(_delta: float) -> void:
+	self.fpslabel.set_text(\"FPS %d\" % Performance.get_monitor(0))
+
+func push_log(item) -> void:
+	self.loglist.add_item(str(item))
+
+func set_watched(key: String, value) -> void:
+	for i in range(0, self.watchedlist.get_item_count()):
+		if self.watchedlist.get_item_text(i) == key:
+			self.watchedlist.set_item_text(i+1, str(value))
+			return
+
+	self.watchedlist.add_item(key)
+	self.watchedlist.add_item(str(value))
+"
+
+[node name="Debug" type="CanvasLayer"]
+layer = 5
+script = SubResource( 1 )
+
+[node name="Control" type="Control" parent="."]
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="TabContainer" type="TabContainer" parent="Control"]
+margin_top = 400.0
+margin_right = 1024.0
+margin_bottom = 600.0
+tab_align = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Watched" type="ItemList" parent="Control/TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+size_flags_horizontal = 3
+max_columns = 2
+
+[node name="Log" type="ItemList" parent="Control/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+size_flags_horizontal = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="Control"]
+margin_left = 963.978
+margin_top = 400.0
+margin_right = 1021.98
+margin_bottom = 428.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FPSLabel" type="Label" parent="Control/PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 50.9999
+margin_bottom = 21.0

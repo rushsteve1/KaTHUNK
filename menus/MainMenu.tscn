@@ -34,4 +34,17 @@ margin_top = 540.0
 margin_right = 512.0
 margin_bottom = 560.0
 text = "Join Game"
+
+[node name="AcceptDialog" type="AcceptDialog" parent="."]
+margin_left = 470.0
+margin_top = 271.0
+margin_right = 553.0
+margin_bottom = 329.0
+
+[node name="LineEdit" type="LineEdit" parent="AcceptDialog"]
+margin_right = 58.0
+margin_bottom = 24.0
+placeholder_text = "Server Pin Code"
 [connection signal="pressed" from="VBoxContainer/HostButton" to="." method="_on_HostButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/JoinButton" to="." method="_on_JoinButton_pressed"]
+[connection signal="confirmed" from="AcceptDialog" to="." method="_on_AcceptDialog_confirmed"]
